@@ -10,8 +10,25 @@ interface PageInfo {
 }
 
 export const pages: { 3333: PageInfo[]; 4444: PageInfo[]; 6666: PageInfo[]; 8888: PageInfo[] } = {
-	3333: [],
-	4444: [],
+	3333: [
+		{
+			name: "Materiály",
+			path: "/labs3",
+			icon: BrickWall,
+		},
+		{
+			name: "Elektronické zásilky",
+			path: "/shipments3",
+			icon: Package,
+		},
+	],
+	4444: [
+		{
+			name: "Materiály",
+			path: "/labs4",
+			icon: BrickWall,
+		},
+	],
 	6666: [
 		{
 			name: "Uživatelé",
