@@ -368,6 +368,7 @@ export const getSuppliersOfClientWithId = async (clientId: number): Promise<APIE
 		}
 
 		const suppliers = await response.json();
+
 		return suppliersArraySchema.parse(suppliers);
 	} catch (error: any) {
 		const apiError: APIError = { status: "error", message: error.message || "An error occurred" };
@@ -393,6 +394,32 @@ export const getAllLabs = async (clientNumber: number): Promise<APIError | Lab[]
 
 		const labs = await response.json();
 		return labsArraySchema.parse(labs);
+	} catch (error: any) {
+		const apiError: APIError = { status: "error", message: error.message || "An error occurred" };
+		return apiError;
+	}
+};
+
+export const markLabAsRead = async (labId: string): Promise<APIError | void> => {
+	try {
+		const params = new URLSearchParams({ labId });
+		const response = await fetch(`https://www.hella.com/webEdiPersistence/labs/markLabAsRead?${params}`, {
+			method: "PUT",
+			headers: {
+				accept: "*/*",
+				securitytoken: SECURITY_TOKEN,
+			},
+		});
+
+		if (response.status === 401) {
+			const error: APIError = { status: "error", message: "Unauthorized" };
+			return error;
+		}
+
+		if (!response.ok) {
+			const error: APIError = { status: "error", message: "Failed to mark lab as read" };
+			return error;
+		}
 	} catch (error: any) {
 		const apiError: APIError = { status: "error", message: error.message || "An error occurred" };
 		return apiError;

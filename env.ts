@@ -7,6 +7,10 @@ const envSchema = z.object({
 		.string()
 		.transform((v) => parseInt(v))
 		.readonly(),
+	CLIENT_NUMBER: z
+		.string()
+		.transform((v) => parseInt(v))
+		.readonly(),
 	AUTH_SECRET: z.string().readonly(),
 	SECURITY_TOKEN: z.string().readonly(),
 });

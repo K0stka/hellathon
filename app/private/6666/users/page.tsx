@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import ErrorPage from "@/components/ErrorPage";
+import ErrorPage from "@/components/utility/ErrorPage";
 import Link from "next/link";
-import PageTemplate from "@/components/PageTemplate";
+import PageTemplate from "@/components/utility/PageTemplate";
 import { Button } from "@/components/ui/button";
 import { UserIdList } from "./actions";
 import { getSessionUser } from "@/auth/session";

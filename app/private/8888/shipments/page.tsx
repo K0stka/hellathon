@@ -7,7 +7,7 @@ import UserList from "@/components/UserList";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { NextPage } from "next";
-import PageTemplate from "@/components/PageTemplate";
+import PageTemplate from "@/components/utility/PageTemplate";
 
 const SomePage: NextPage = () => {
 	return (

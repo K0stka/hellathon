@@ -1,6 +1,6 @@
 "use client";
 
-import PageTemplate from "@/components/PageTemplate";
+import PageTemplate from "@/components/utility/PageTemplate";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,33 +12,26 @@ import { Button } from "@/components/ui/button";
 import { createSupplier } from "@/api/api";
 import { clientEnv } from "@/clientSafeEnv";
 import { useState } from "react";
-import FormError from "@/components/FormError";
+import FormError from "@/components/forms/FormError";
 
 const schema = z.object({
-	name: z.string(),
-	email: z.string(),
-	phone: z.string(),
-	fax: z.string(),
-	streetNumber: z.string(),
-	zipCode: z.string(),
-	city: z.string(),
-	// land: z.string(),
-	// name: z.string().min(3),
-	// email: z.string().refine(validator.isEmail),
-	// phone: z.string().refine(validator.isMobilePhone),
-	// fax: z.string().refine(validator.isMobilePhone),
-	// streetNumber: z.string().min(3),
-	// zipCode: z.string().min(3),
-	// city: z.string().min(3),
-	// land: z.string().min(3),
+	name: z.string().min(3),
+	email: z.string().refine(validator.isEmail),
+	phone: z.string().refine(validator.isMobilePhone),
+	fax: z.string().refine(validator.isMobilePhone),
+	streetNumber: z.string().min(3),
+	zipCode: z.string().min(3),
+	city: z.string().min(3),
+	land: z.string().min(3),
 });
 
-const AddSupplierPage: NextPage = () => {
+const ShipmentAddPage: NextPage = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	const form = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		defaultValues: {
+			//supplier, customer
 			name: "",
 			email: "",
 			phone: "",
@@ -64,15 +57,18 @@ const AddSupplierPage: NextPage = () => {
 			land: data.land,
 		});
 
-		console.log("here");
-		console.log(response);
-		redirect("/suppliers", 302);
+		if ("message" in response) {
+			setError(response.message);
+		} else {
+			setError(null);
+			form.reset();
+		}
 	};
 
 	return (
 		<PageTemplate
-			title="Přidat dodavatele"
-			backPath="/suppliers">
+			title="Přidat zásilku"
+			backPath="/shipments">
 			<Form {...form}>
 				<FormError error={error} />
 				<form
@@ -195,4 +191,4 @@ const AddSupplierPage: NextPage = () => {
 	);
 };
 
-export default AddSupplierPage;
+export default ShipmentAddPage;

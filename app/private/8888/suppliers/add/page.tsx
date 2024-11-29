@@ -1,6 +1,6 @@
 "use client";
 
-import PageTemplate from "@/components/PageTemplate";
+import PageTemplate from "@/components/utility/PageTemplate";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,8 @@ import { Button } from "@/components/ui/button";
 import { createSupplier } from "@/api/api";
 import { clientEnv } from "@/clientSafeEnv";
 import { useState } from "react";
-import FormError from "@/components/FormError";
+import FormError from "@/components/forms/FormError";
+import { redirect } from "next/navigation";
 
 const schema = z.object({
 	name: z.string().min(3),
@@ -25,13 +26,12 @@ const schema = z.object({
 	land: z.string().min(3),
 });
 
-const ShipmentAddPage: NextPage = () => {
+const AddSupplierPage: NextPage = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	const form = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		defaultValues: {
-			//supplier, customer
 			name: "",
 			email: "",
 			phone: "",
@@ -57,18 +57,15 @@ const ShipmentAddPage: NextPage = () => {
 			land: data.land,
 		});
 
-		if ("message" in response) {
-			setError(response.message);
-		} else {
-			setError(null);
-			form.reset();
-		}
+		console.log("here");
+		console.log(response);
+		redirect("/suppliers");
 	};
 
 	return (
 		<PageTemplate
-			title="Přidat zásilku"
-			backPath="/shipments">
+			title="Přidat dodavatele"
+			backPath="/suppliers">
 			<Form {...form}>
 				<FormError error={error} />
 				<form
@@ -191,4 +188,4 @@ const ShipmentAddPage: NextPage = () => {
 	);
 };
 
-export default ShipmentAddPage;
+export default AddSupplierPage;

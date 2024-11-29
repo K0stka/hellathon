@@ -1,15 +1,15 @@
 import { NextPage } from "next";
 import { getAllLabs } from "@/api/api";
-import ErrorPage from "@/components/ErrorPage";
+import ErrorPage from "@/components/utility/ErrorPage";
 import Link from "next/link";
-import PageTemplate from "@/components/PageTemplate";
+import PageTemplate from "@/components/utility/PageTemplate";
 import { Button } from "@/components/ui/button";
 import { env } from "@/env";
 import { DataTable } from "@/components/tables/DataTable";
 import { materialColumns } from "@/components/tables/materialColumns";
 
 const SomePage: NextPage = async () => {
-	const materials = await getAllLabs(env.CLIENT_ID);
+	const materials = await getAllLabs(env.CLIENT_NUMBER);
 
 	return (
 		<PageTemplate title="Materiály">
@@ -17,14 +17,13 @@ const SomePage: NextPage = async () => {
 				<ErrorPage error={materials.message} />
 			) : (
 				<>
-					<div>udelej tabulky dik {"<3"}</div>
-
 					<DataTable
 						columns={materialColumns}
 						data={materials}
 						searchPlaceholder="Hledat materiál..."
-						actionPath="/labs"
-						actionText="nic nepřidáš"
+						searchColumn="plantDescription"
+						// actionPath="/labs"
+						// actionText="nic nepřidáš"
 					/>
 				</>
 			)}

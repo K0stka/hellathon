@@ -17,6 +17,7 @@ export default function RootLayout({
 		<html
 			lang="cs"
 			suppressHydrationWarning>
+			<head></head>
 			<body className={`${heptaSlab.variable} antialiased`}>
 				<ThemeProvider
 					attribute="class"

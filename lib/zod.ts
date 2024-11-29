@@ -112,10 +112,10 @@ export const clientSchema = z.object({
 });
 
 export const supplierSchema = z.object({
-	id: z.number(),
-	name: z.string(),
-	number: z.string(),
-	clientId: z.number(),
+	id: z.number().optional(),
+	name: z.string().optional(),
+	number: z.string().optional(),
+	clientId: z.number().optional(),
 	adminUserId: z.number().optional(),
 	streetHouseNumber: z.string().optional(),
 	zipCode: z.string().optional(),
@@ -246,56 +246,56 @@ export const userGroupIdsSchema = z.array(z.number());
 
 export const labSchema = z.object({
 	id: z.number(),
-	customerDescription: z.string(),
-	customerStreetHouseNumber: z.string(),
-	customerLand: z.string(),
-	customerZipCode: z.string(),
-	customerCity: z.string(),
-	customerContactPersonName: z.string(),
-	customerPurchasingGroup: z.string(),
-	customerIdentification: z.string(),
-	customerPhone: z.string(),
-	customerFax: z.string(),
-	customerEmail: z.string(),
-	customerVat: z.string(),
-	customerNumber: z.string(),
-	supplierNumber: z.string(),
-	clientNumber: z.string(),
-	plantNumber: z.string(),
-	plantDescription: z.string(),
-	unloadingPoint: z.string(),
-	storagePoint: z.string(),
-	consumptionPoint: z.string(),
-	currentLabNumber: z.string(),
-	currentLabDate: z.string(), // date
-	lastLabNumber: z.string(),
-	lastLabDate: z.string(), // date
-	partNumber: z.string(),
-	materialDescription: z.string(),
-	productionReleaseDate: z.string(),
-	materialReleaseDate: z.string(),
-	orderNumber: z.string(),
-	freeText: z.string(),
-	unitOfMeasure: z.string(),
-	inputProgressCount: z.string(),
-	startDateEfz: z.string(),
-	resetEfz: z.string(),
-	status: z.string(),
-	readAt: z.string(), // date
-	inProgressFrom: z.string(), // date
-	closedAt: z.string(), // date
-	ediMessageKey: z.string(),
-	overtakeNumber: z.string(),
-	overtakeDate: z.string(), // date
-	updatedAt: z.string(), // date
-	updatedBy: z.string(),
-	createdAt: z.string(), // date
-	createdBy: z.string(),
-	deletionMark: z.string(),
-	labId: z.string(),
-	labFlag: z.string(),
-	key: z.string(),
-	orderPosition: z.string(),
+	customerDescription: z.string().optional(),
+	customerStreetHouseNumber: z.string().optional(),
+	customerLand: z.string().optional(),
+	customerZipCode: z.string().optional(),
+	customerCity: z.string().optional(),
+	customerContactPersonName: z.string().optional(),
+	customerPurchasingGroup: z.string().optional(),
+	customerIdentification: z.string().optional(),
+	customerPhone: z.string().optional(),
+	customerFax: z.string().optional(),
+	customerEmail: z.string().optional(),
+	customerVat: z.string().optional(),
+	customerNumber: z.string().optional(),
+	supplierNumber: z.string().optional(),
+	clientNumber: z.string().optional(),
+	plantNumber: z.string().optional(),
+	plantDescription: z.string().optional(),
+	unloadingPoint: z.string().optional(),
+	storagePoint: z.string().optional(),
+	consumptionPoint: z.string().optional(),
+	currentLabNumber: z.string().optional(),
+	currentLabDate: z.string().optional(), // date
+	lastLabNumber: z.string().optional(),
+	lastLabDate: z.string().optional(), // date
+	partNumber: z.string().optional(),
+	materialDescription: z.string().optional(),
+	productionReleaseDate: z.string().optional(),
+	materialReleaseDate: z.string().optional(),
+	orderNumber: z.string().optional(),
+	freeText: z.string().optional(),
+	unitOfMeasure: z.string().optional(),
+	inputProgressCount: z.string().optional(),
+	startDateEfz: z.string().optional(),
+	resetEfz: z.string().optional(),
+	status: z.string().optional(),
+	readAt: z.string().optional(), // date
+	inProgressFrom: z.string().optional(), // date
+	closedAt: z.string().optional(), // date
+	ediMessageKey: z.string().optional(),
+	overtakeNumber: z.string().optional(),
+	overtakeDate: z.string().optional(), // date
+	updatedAt: z.string().optional(), // date
+	updatedBy: z.string().optional(),
+	createdAt: z.string().optional(), // date
+	createdBy: z.string().optional(),
+	deletionMark: z.string().optional(),
+	labId: z.string().optional(),
+	labFlag: z.string().optional(),
+	key: z.string().optional(),
+	orderPosition: z.string().optional(),
 });
 
 export const labsArraySchema = z.array(labSchema);

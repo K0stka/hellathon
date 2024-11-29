@@ -9,7 +9,7 @@ interface PageTemplateProps {
 
 const PageTemplate = ({ title, children, backPath }: PageTemplateProps) => {
 	return (
-		<main className="p-5 grid grid-rows-[auto,1fr] w-screen h-screen overflow-y-auto gap-3 ">
+		<main className="p-5 grid grid-rows-[auto,1fr] w-full h-screen overflow-y-auto gap-3 ">
 			<h1 className="text-3xl font-bold">
 				{backPath && (
 					<Link

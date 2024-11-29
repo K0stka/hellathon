@@ -10,7 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
-import FormError from "@/components/FormError";
+import FormError from "@/components/forms/FormError";
 
 export const loginSchema = z.object({
 	loginName: z.string(),

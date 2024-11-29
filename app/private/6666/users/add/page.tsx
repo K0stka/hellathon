@@ -2,7 +2,7 @@
 
 import { createSupplierAdmin, getSuppliersOfClientWithId } from "@/api/api";
 import { clientEnv } from "@/clientSafeEnv";
-import PageTemplate from "@/components/PageTemplate";
+import PageTemplate from "@/components/utility/PageTemplate";
 import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -14,7 +14,7 @@ import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import FormError from "@/components/FormError";
+import FormError from "@/components/forms/FormError";
 import validator from "validator";
 
 const schema = z.object({
@@ -48,6 +48,8 @@ const AddSupplierPage: NextPage = () => {
 	useEffect(() => {
 		const getSuppliers = async () => {
 			const suppliers = await getSuppliersOfClientWithId(clientEnv.CLIENT_ID);
+			
+			console.log(suppliers);
 
 			if ("message" in suppliers) setError(suppliers.message);
 			else setSuppliers(suppliers.map((supplier: Supplier) => ({ value: supplier.id.toString(), label: supplier.name })));

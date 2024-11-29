@@ -9,31 +9,55 @@ import { deleteSupplier } from "@/api/api";
 import { redirect } from "next/navigation";
 import { Lab } from "@/lib/types";
 import { labsArraySchema } from "@/lib/zod";
+import { markLabAsRead } from "@/api/api";
 
 export const materialColumns: ColumnDef<Lab>[] = [
 	{
-		accessorKey: "id",
+		id: "Vytvořeno",
 		header: ({ column }) => {
 			return (
 				<Button
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-					id
+					Vytvořeno
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+		cell: ({ row }) => {
+			return <div>{new Date(row.original.createdAt).toLocaleString()}</div>;
+		},
+	},
+	{
+		accessorKey: "customerEmail",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					Email
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+	},
+
+	{
+		accessorKey: "readAt",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					Přečteno
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
 		},
 	},
 	{
-		id: "customerDescription",
-		header: "customerDescription",
-		cell: ({ row }) => {
-			return (
-				<div>
-					{row.original.id}, {row.original.clientNumber},{row.original.deletionMark}
-				</div>
-			);
-		},
+		accessorKey: "plantDescription",
+		header: "Popis",
 	},
 	{
 		id: "actions",
@@ -51,17 +75,9 @@ export const materialColumns: ColumnDef<Lab>[] = [
 					<DropdownMenuContent align="end">
 						<DropdownMenuItem
 							onSelect={() => {
-								alert("TODO");
+								markLabAsRead(row.original.labId);
 							}}>
-							Upravit
-						</DropdownMenuItem>
-						<DropdownMenuItem
-							className="text-red-500"
-							onSelect={() => {
-								deleteSupplier(row.original.id);
-								redirect("/suppliers");
-							}}>
-							Smazat
+							Označit jako přečtené
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
