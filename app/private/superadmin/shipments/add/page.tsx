@@ -13,7 +13,6 @@ import { createSupplier } from "@/api/api";
 import { clientEnv } from "@/clientSafeEnv";
 import { useState } from "react";
 import FormError from "@/components/FormError";
-import { redirect } from "next/dist/server/api-utils";
 
 const schema = z.object({
 	name: z.string().min(3),
@@ -26,12 +25,13 @@ const schema = z.object({
 	land: z.string().min(3),
 });
 
-const AddSupplierPage: NextPage = () => {
+const ShipmentAddPage: NextPage = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	const form = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		defaultValues: {
+			//supplier, customer
 			name: "",
 			email: "",
 			phone: "",
@@ -60,14 +60,15 @@ const AddSupplierPage: NextPage = () => {
 		if ("message" in response) {
 			setError(response.message);
 		} else {
-			redirect("/suppliers");
+			setError(null);
+			form.reset();
 		}
 	};
 
 	return (
 		<PageTemplate
-			title="Přidat dodavatele"
-			backPath="/suppliers">
+			title="Přidat zásilku"
+			backPath="/shipments">
 			<Form {...form}>
 				<FormError error={error} />
 				<form
@@ -190,4 +191,4 @@ const AddSupplierPage: NextPage = () => {
 	);
 };
 
-export default AddSupplierPage;
+export default ShipmentAddPage;

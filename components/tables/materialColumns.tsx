@@ -8,7 +8,7 @@ import { ArrowUpDown, Mail, MoreHorizontal, Phone } from "lucide-react";
 import { deleteSupplier } from "@/api/api";
 import { redirect } from "next/navigation";
 
-export const supplierColumns: ColumnDef<Supplier>[] = [
+export const materialColumns: ColumnDef<Lab>[] = [
 	{
 		accessorKey: "name",
 		header: ({ column }) => {

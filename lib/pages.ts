@@ -1,5 +1,6 @@
 import { LucideProps, Sparkle } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { Home, Users, Package, FileText, Activity, Truck, BrickWall } from "lucide-react";
 
 interface PageInfo {
 	name: string;
@@ -27,33 +28,33 @@ export const sharedPages: PageInfo[] = [
 
 export const superAdminPages: PageInfo[] = [
 	{
-		name: "Root",
+		name: "Hlavní stránka",
 		path: "/",
-		icon: Sparkle,
+		icon: Home,
 	},
 	{
 		name: "Dodavatelé",
 		path: "/suppliers",
-		icon: Sparkle,
+		icon: Truck,
 	},
 	{
 		name: "Uživatelé",
 		path: "/users",
-		icon: Sparkle,
+		icon: Users,
 	},
 	{
 		name: "Materiály",
 		path: "/labs",
-		icon: Sparkle,
+		icon: BrickWall,
 	},
 	{
 		name: "Elektronické zásilky",
 		path: "/shipments",
-		icon: Sparkle,
+		icon: Package,
 	},
 	{
 		name: "Záznamy o činnosti",
 		path: "/logs",
-		icon: Sparkle,
+		icon: Activity,
 	},
 ];

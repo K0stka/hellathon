@@ -493,11 +493,11 @@ export interface ShipmentNumbers {
 
 export interface Supplier {
 	id: number;
-	adminUserId: number;
+	adminUserId?: number; // changed to optional
 	clientId: number;
 	number: string;
 	name: string;
-	streetHouseNumber: string;
+	streetHouseNumber?: string; // changed to optional
 	zipCode: string;
 	city: string;
 	land: string;
@@ -656,6 +656,6 @@ export interface UserSorting {
 export interface Lab {
 	id: number;
 	clientNumber: string;
-	deletionMark: 0;
+	deletionMark: string; // changed to string
 	// ...other fields as necessary...
 }

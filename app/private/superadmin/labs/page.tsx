@@ -5,6 +5,8 @@ import Link from "next/link";
 import PageTemplate from "@/components/PageTemplate";
 import { Button } from "@/components/ui/button";
 import { env } from "@/env";
+import { DataTable } from "@/components/tables/DataTable";
+import { materialColumns } from "@/components/tables/materialColumns";
 
 const SomePage: NextPage = async () => {
 	const materials = await getAllLabs(env.CLIENT_ID);
@@ -15,12 +17,15 @@ const SomePage: NextPage = async () => {
 				<ErrorPage error={materials.message} />
 			) : (
 				<>
-					{materials.map((material) => (
-						<div>
-							<div key={material.id}>{material.id}</div>
-							<br></br>
-						</div>
-					))}
+					<div>udelej tabulky dik {"<3"}</div>
+
+					<DataTable
+						columns={materialColumns}
+						data={materials}
+						searchPlaceholder="Hledat dodavatele..."
+						actionPath="/suppliers/add"
+						actionText="Přidat dodavatele"
+					/>
 				</>
 			)}
 		</PageTemplate>

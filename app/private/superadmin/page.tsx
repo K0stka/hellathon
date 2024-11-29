@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import UserList from "@/components/UserList";
 import { getSessionUser } from "@/auth/session";
 import { Shipment } from "@/lib/types";
+import RedirectButton from "@/components/RedirectButton";
 
 interface PlaceholderProps {
 	color?: string;
@@ -18,7 +19,10 @@ const SomePage = async () => {
 	return (
 		<div>
 			<h1>Vítej, {user?.name}</h1>
-			<button>asdf</button>
+			<RedirectButton //cc michale
+				text="asdf"
+				location="asdf"
+			/>
 			<Placeholder text="hlavní stránka, třeba nějaký dashboard" />
 		</div>
 	);

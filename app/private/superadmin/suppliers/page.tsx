@@ -5,6 +5,8 @@ import Link from "next/link";
 import PageTemplate from "@/components/PageTemplate";
 import { Button } from "@/components/ui/button";
 import { env } from "@/env";
+import { DataTable } from "@/components/tables/DataTable";
+import { supplierColumns } from "@/components/tables/suppliersColumns";
 
 const SomePage: NextPage = async () => {
 	const suppliers = await getSuppliersOfClientWithId(env.CLIENT_ID);
@@ -15,15 +17,14 @@ const SomePage: NextPage = async () => {
 				<ErrorPage error={suppliers.message} />
 			) : (
 				<>
-					{suppliers.map((supplier) => (
-						<div>
-							<div key={supplier.id}>{supplier.email}</div>
-							<br></br>
-						</div>
-					))}
-					<Link href="/suppliers/add">
-						<Button>Přidat dodavatele</Button>
-					</Link>
+					<DataTable
+						columns={supplierColumns}
+						data={suppliers}
+						searchPlaceholder="Hledat dodavatele..."
+						searchColumn="name"
+						actionPath="/suppliers/add"
+						actionText="Přidat dodavatele"
+					/>
 				</>
 			)}
 		</PageTemplate>

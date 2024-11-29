@@ -246,9 +246,56 @@ export const userGroupIdsSchema = z.array(z.number());
 
 export const labSchema = z.object({
 	id: z.number(),
+	customerDescription: z.string(),
+	customerStreetHouseNumber: z.string(),
+	customerLand: z.string(),
+	customerZipCode: z.string(),
+	customerCity: z.string(),
+	customerContactPersonName: z.string(),
+	customerPurchasingGroup: z.string(),
+	customerIdentification: z.string(),
+	customerPhone: z.string(),
+	customerFax: z.string(),
+	customerEmail: z.string(),
+	customerVat: z.string(),
+	customerNumber: z.string(),
+	supplierNumber: z.string(),
 	clientNumber: z.string(),
-	deletionMark: z.literal(0),
-	// ...other fields as necessary...
+	plantNumber: z.string(),
+	plantDescription: z.string(),
+	unloadingPoint: z.string(),
+	storagePoint: z.string(),
+	consumptionPoint: z.string(),
+	currentLabNumber: z.string(),
+	currentLabDate: z.string(), // date
+	lastLabNumber: z.string(),
+	lastLabDate: z.string(), // date
+	partNumber: z.string(),
+	materialDescription: z.string(),
+	productionReleaseDate: z.string(),
+	materialReleaseDate: z.string(),
+	orderNumber: z.string(),
+	freeText: z.string(),
+	unitOfMeasure: z.string(),
+	inputProgressCount: z.string(),
+	startDateEfz: z.string(),
+	resetEfz: z.string(),
+	status: z.string(),
+	readAt: z.string(), // date
+	inProgressFrom: z.string(), // date
+	closedAt: z.string(), // date
+	ediMessageKey: z.string(),
+	overtakeNumber: z.string(),
+	overtakeDate: z.string(), // date
+	updatedAt: z.string(), // date
+	updatedBy: z.string(),
+	createdAt: z.string(), // date
+	createdBy: z.string(),
+	deletionMark: z.string(),
+	labId: z.string(),
+	labFlag: z.string(),
+	key: z.string(),
+	orderPosition: z.string(),
 });
 
 export const labsArraySchema = z.array(labSchema);

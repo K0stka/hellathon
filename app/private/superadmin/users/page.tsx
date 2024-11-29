@@ -24,11 +24,9 @@ const SomePage: NextPage = async () => {
 						data={users}
 						searchPlaceholder="Hledat uživatele..."
 						searchColumn="name"
+						actionPath="/users/add"
+						actionText="Přidat uživatele"
 					/>
-
-					<Link href="/users/add">
-						<Button>Přidat uživatele</Button>
-					</Link>
 				</>
 			)}
 		</PageTemplate>

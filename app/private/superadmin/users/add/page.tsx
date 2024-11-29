@@ -1,12 +1,16 @@
 "use client";
 
 import { getSuppliersOfClientWithId } from "@/api/api";
+import { clientEnv } from "@/clientSafeEnv";
 import PageTemplate from "@/components/PageTemplate";
+import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Supplier } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
+import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,40 +19,46 @@ const schema = z.object({
 	name: z.string().min(3),
 	loginName: z.string().min(3),
 	description: z.string(),
-	password: z.string().min(12),
+	password: z.string().min(8),
 	supplierId: z.string(),
 });
 
 const AddSupplierPage: NextPage = () => {
 	const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
-	const [suppliers, setSuppliers] = useState([]);
+	const [error, setError] = useState<string | null>(null);
+	const [suppliers, setSuppliers] = useState<{ value: string; label: string }[] | null>(null);
 
 	useEffect(() => {
-		const fetchSuppliers = async () => {
-			const suppliers = await getSuppliersOfClientWithId(31);
-			setSuppliers(suppliers);
-			console.log(suppliers);
-			console.log("lol");
+		const getSuppliers = async () => {
+			const suppliers = await getSuppliersOfClientWithId(clientEnv.CLIENT_ID);
+
+			if ("message" in suppliers) setError(suppliers.message);
+			else setSuppliers(suppliers.map((supplier: Supplier) => ({ value: supplier.id.toString(), label: supplier.name })));
 		};
-		fetchSuppliers();
+		getSuppliers();
 	}, []);
 
-	suppliers.map((supplier) => ({
-		id: parseInt(supplier.id, 10),
-		name: supplier.name,
-		email: supplier.email,
-	}));
-
 	const onSubmit = async (data: z.infer<typeof schema>) => {
-		data.supplierId = parseInt(data.supplierId, 10);
 		console.log(data);
-		createSupplierAdmin();
+		// data.supplierId = parseInt(data.supplierId, 10);
+		// createSupplierAdmin(name = data.name)), (loginName = data.loginName), (description = data.description), (password = data.password), (supplierId = data.supplierId);
+		// const { supplierId, ...rest } = data;
+		// console.log(rest);
+		// console.log(suppliers.find((supplier) => supplier.id === data.supplierId));
+		// const response = await createSupplierAdmin(rest, supplierId);
+		const response = { message: "TBI" };
+
+		if ("message" in response) {
+			setError(response.message);
+		} else {
+			redirect("/users");
+		}
 	};
 
 	return (
 		<PageTemplate
 			title="Přidat správce dodavatele"
-			backPath="/suppliers">
+			backPath="/users">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField
@@ -63,7 +73,6 @@ const AddSupplierPage: NextPage = () => {
 										{...field}
 									/>
 								</FormControl>
-								<FormDescription>Jméno a Příjmení nového uživatele</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -80,7 +89,6 @@ const AddSupplierPage: NextPage = () => {
 										{...field}
 									/>
 								</FormControl>
-								<FormDescription>Přihlašovací jméno nového uživatele</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -97,7 +105,6 @@ const AddSupplierPage: NextPage = () => {
 										{...field}
 									/>
 								</FormControl>
-								<FormDescription>Popis nového uživatele</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -115,7 +122,6 @@ const AddSupplierPage: NextPage = () => {
 										{...field}
 									/>
 								</FormControl>
-								<FormDescription>Heslo by mělo mít alespoň 12 znaků</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -126,19 +132,33 @@ const AddSupplierPage: NextPage = () => {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Dodavatel</FormLabel>
+								{/* {...field} */}
 								<FormControl>
-									<select {...field}>
-										<option value="">Vyberte dodavatele</option>
-										{suppliers.map((supplier) => (
-											<option
-												key={supplier.id}
-												value={supplier.id}>
-												{supplier.name} {supplier.email}
-											</option>
-										))}
-									</select>
+									{suppliers ? (
+										<Select>
+											<SelectTrigger>
+												<SelectValue placeholder="Zvolte dodavatele" />
+											</SelectTrigger>
+											<SelectContent>
+												{suppliers.map((supplier) => (
+													<SelectItem
+														key={supplier.value}
+														value={supplier.value}>
+														{supplier.label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									) : (
+										<div>
+											<Button
+												disabled
+												variant="outline">
+												Načítání...
+											</Button>
+										</div>
+									)}
 								</FormControl>
-								<FormDescription>Vyberte dodavatele pro nového uživatele</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}

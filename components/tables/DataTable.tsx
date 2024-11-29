@@ -6,15 +6,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useState } from "react";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 	searchPlaceholder?: string;
 	searchColumn?: keyof TData & string;
+	actionPath?: string;
+	actionText?: string;
 }
 
-export function DataTable<TData, TValue>({ columns, data, searchPlaceholder, searchColumn }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, searchPlaceholder, searchColumn, actionPath, actionText }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -34,17 +37,22 @@ export function DataTable<TData, TValue>({ columns, data, searchPlaceholder, sea
 	});
 
 	return (
-		<div>
-			{searchPlaceholder && searchColumn && (
-				<div className="flex items-center py-4">
+		<div className="w-full h-full">
+			<div className="flex items-center justify-between py-4">
+				{searchPlaceholder && searchColumn && (
 					<Input
 						placeholder={searchPlaceholder}
 						value={(table.getColumn(searchColumn)?.getFilterValue() as string) ?? ""}
 						onChange={(event) => table.getColumn(searchColumn)?.setFilterValue(event.target.value)}
 						className="max-w-sm"
 					/>
-				</div>
-			)}
+				)}
+				{actionPath && actionText && (
+					<Link href={actionPath}>
+						<Button>{actionText}</Button>
+					</Link>
+				)}
+			</div>
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>

@@ -3,9 +3,10 @@
 import { env } from "@/env";
 import { AuthUser, ValidRoleId } from "@/lib/types";
 import { APIError } from "@/lib/utility";
-import type { InsertUser, User, CreateSupplier } from "@/lib/types.d";
+import type { InsertUser, User, CreateSupplier, Supplier, Lab } from "@/lib/types.d";
 import { userSchema, usersArraySchema, supplierSchema, shipmentSchema, userGroupIdsSchema, suppliersArraySchema, updateSupplierSchema, labsArraySchema } from "@/lib/zod";
 import { z } from "zod";
+import { ApiError } from "next/dist/server/api-utils";
 
 const SECURITY_TOKEN = env.SECURITY_TOKEN;
 
@@ -350,7 +351,7 @@ export const insertShipment = async (shipmentData: z.infer<typeof shipmentSchema
 	}
 };
 
-export const getSuppliersOfClientWithId = async (clientId: number) => {
+export const getSuppliersOfClientWithId = async (clientId: number): Promise<APIError | Supplier[]> => {
 	try {
 		const params = new URLSearchParams({ clientId: clientId.toString() });
 		const response = await fetch(`https://www.hella.com/webEdiPersistence/suppliers/getSuppliersOfClientWithId?${params}`, {
@@ -374,7 +375,7 @@ export const getSuppliersOfClientWithId = async (clientId: number) => {
 	}
 };
 
-export const getAllLabs = async (clientNumber: number) => {
+export const getAllLabs = async (clientNumber: number): Promise<APIError | Lab[]> => {
 	try {
 		const params = new URLSearchParams({ clientNumber: clientNumber.toString(), deletionMark: "0" });
 		const response = await fetch(`https://www.hella.com/webEdiPersistence/labs/getLabsByClientAndDeletionMark?${params}`, {

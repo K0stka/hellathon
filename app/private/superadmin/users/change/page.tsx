@@ -23,7 +23,7 @@ const AddSupplierPage: NextPage = () => {
 
 	return (
 		<PageTemplate
-			title="Přidat správce dodavatele"
+			title="Upravit správce dodavatele"
 			backPath="/suppliers">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
