@@ -21,7 +21,9 @@ const HomePage: NextPage = async () => {
 			<div className="grid grid-cols-5 justify-center items-center gap-4 content-center justify-items-center">
 				{user.roles.map((role) =>
 					pages[role].map((page) => (
-						<Link href={page.path}>
+						<Link
+							href={page.path}
+							key={page.path}>
 							<div className="aspect-square size-40 border-2 shadow-lg rounded-full grid grid-rows-[auto,auto] content-center items-center justify-items-center gap-0">
 								{page.icon && <page.icon className="size-16" />}
 								<span className="text-center font-bold text-wrap w-3/5">{page.name}</span>

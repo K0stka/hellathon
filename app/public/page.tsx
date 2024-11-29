@@ -12,11 +12,7 @@ import { useState } from "react";
 import Link from "next/link";
 import FormError from "@/components/forms/FormError";
 import Image from "next/image";
-
-export const loginSchema = z.object({
-	loginName: z.string(),
-	password: z.string(),
-});
+import { loginSchema } from "@/lib/utils";
 
 const LoginPage: NextPage = () => {
 	const [error, setError] = useState<string | null>(null);

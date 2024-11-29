@@ -5,7 +5,7 @@ import { Sidebar as ShadCnSidebar, SidebarContent, SidebarFooter, SidebarHeader,
 import { useContext } from "react";
 import { AuthContext } from "@/auth/context";
 
-import { User } from "@/lib/types";
+import { AuthUser } from "@/lib/types";
 
 import { SidebarUser } from "@/components/sidebar/SidebarUser";
 import SidebarLinks from "./SidebarLinks";
@@ -14,7 +14,7 @@ import SidebarLogo from "./SidebarLogo";
 type SidebarProps = React.ComponentProps<typeof ShadCnSidebar>;
 
 export function Sidebar({ ...props }: SidebarProps) {
-	const user = useContext(AuthContext) as User;
+	const user = useContext(AuthContext) as AuthUser;
 
 	return (
 		<ShadCnSidebar
