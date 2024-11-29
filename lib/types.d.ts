@@ -524,6 +524,39 @@ export interface Supplier {
 	asnWarningInHours: number;
 }
 
+export interface UpdateSupplier {
+	id: number;
+	adminUserId: number;
+	clientId: number;
+	number: string;
+	name: string;
+	streetHouseNumber: string;
+	zipCode: string;
+	city: string;
+	land: string;
+	phone: string;
+	fax: string;
+	email: string;
+	status: string;
+	labWarningInHours: number;
+	updatedAt: string; // date
+	updatedBy: string;
+	createdAt: string; // date
+	createdBy: string;
+	ebWarningInHours: number;
+	dunsNumber: string;
+	labInfoInHours: number;
+	bruInfoInHours: number;
+	labWarningToClient: number;
+	besWarningInHours: number;
+	bewWarningInHours: number;
+	bruWarningInHours: number;
+	mabWarningInHours: number;
+	concurrentEdi: number;
+	asnNotificationInHours: number;
+	asnWarningInHours: number;
+}
+
 export interface CreateSupplier {
 	clientId: number;
 	number: string;
@@ -618,4 +651,11 @@ export interface UserSorting {
 	userId: number;
 	key: string;
 	value: string;
+}
+
+export interface Lab {
+	id: number;
+	clientNumber: string;
+	deletionMark: 0;
+	// ...other fields as necessary...
 }

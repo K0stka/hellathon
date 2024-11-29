@@ -159,6 +159,39 @@ export const createSupplierSchema = z.object({
 	email: z.string(),
 });
 
+export const updateSupplierSchema = z.object({
+	id: z.number().optional(),
+	adminUserId: z.number().optional(),
+	clientId: z.number().optional(),
+	number: z.string().optional(),
+	name: z.string().optional(),
+	streetHouseNumber: z.string().optional(),
+	zipCode: z.string().optional(),
+	city: z.string().optional(),
+	land: z.string().optional(),
+	phone: z.string().optional(),
+	fax: z.string().optional(),
+	email: z.string().optional(),
+	status: z.string().optional(),
+	labWarningInHours: z.number().optional(),
+	updatedAt: z.string().optional(),
+	updatedBy: z.string().optional(),
+	createdAt: z.string().optional(),
+	createdBy: z.string().optional(),
+	ebWarningInHours: z.number().optional(),
+	dunsNumber: z.string().optional(),
+	labInfoInHours: z.number().optional(),
+	bruInfoInHours: z.number().optional(),
+	labWarningToClient: z.number().optional(),
+	besWarningInHours: z.number().optional(),
+	bewWarningInHours: z.number().optional(),
+	bruWarningInHours: z.number().optional(),
+	mabWarningInHours: z.number().optional(),
+	concurrentEdi: z.number().optional(),
+	asnNotificationInHours: z.number().optional(),
+	asnWarningInHours: z.number().optional(),
+});
+
 export const insertUserSchema = z.object({
 	name: z.string(),
 	loginName: z.string(),
@@ -210,3 +243,12 @@ export const shipmentSchema = z.object({
 });
 
 export const userGroupIdsSchema = z.array(z.number());
+
+export const labSchema = z.object({
+	id: z.number(),
+	clientNumber: z.string(),
+	deletionMark: z.literal(0),
+	// ...other fields as necessary...
+});
+
+export const labsArraySchema = z.array(labSchema);

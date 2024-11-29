@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
+import FormError from "@/components/FormError";
 
 export const loginSchema = z.object({
 	loginName: z.string(),
@@ -38,7 +39,7 @@ const LoginPage: NextPage = () => {
 				onSubmit={form.handleSubmit(onSubmit)}
 				className="flex flex-col gap-2">
 				<h1 className="font-bold text-2xl">Prosím přihlaste se</h1>
-				{error && <p className="text-red-500">{error}</p>}
+				<FormError error={error} />
 				<FormField
 					control={form.control}
 					name="loginName"

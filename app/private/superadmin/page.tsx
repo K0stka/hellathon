@@ -17,7 +17,8 @@ const SomePage = async () => {
 
 	return (
 		<div>
-			{user?.name}
+			<h1>Vítej, {user?.name}</h1>
+			<button>asdf</button>
 			<Placeholder text="hlavní stránka, třeba nějaký dashboard" />
 		</div>
 	);

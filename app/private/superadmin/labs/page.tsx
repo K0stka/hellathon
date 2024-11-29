@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { getSuppliersOfClientWithId } from "@/api/api";
+import { getAllLabs } from "@/api/api";
 import ErrorPage from "@/components/ErrorPage";
 import Link from "next/link";
 import PageTemplate from "@/components/PageTemplate";
@@ -7,23 +7,20 @@ import { Button } from "@/components/ui/button";
 import { env } from "@/env";
 
 const SomePage: NextPage = async () => {
-	const suppliers = await getSuppliersOfClientWithId(env.CLIENT_ID);
+	const materials = await getAllLabs(env.CLIENT_ID);
 
 	return (
-		<PageTemplate title="Dodavatelé">
-			{"status" in suppliers ? (
-				<ErrorPage error={suppliers.message} />
+		<PageTemplate title="Materiály">
+			{"status" in materials ? (
+				<ErrorPage error={materials.message} />
 			) : (
 				<>
-					{suppliers.map((supplier) => (
+					{materials.map((material) => (
 						<div>
-							<div key={supplier.id}>{supplier.email}</div>
+							<div key={material.id}>{material.id}</div>
 							<br></br>
 						</div>
 					))}
-					<Link href="/suppliers/add">
-						<Button>Přidat dodavatele</Button>
-					</Link>
 				</>
 			)}
 		</PageTemplate>

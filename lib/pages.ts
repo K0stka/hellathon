@@ -32,13 +32,18 @@ export const superAdminPages: PageInfo[] = [
 		icon: Sparkle,
 	},
 	{
-		name: "List dodavatelů",
+		name: "Dodavatelé",
 		path: "/suppliers",
 		icon: Sparkle,
 	},
 	{
+		name: "Uživatelé",
+		path: "/users",
+		icon: Sparkle,
+	},
+	{
 		name: "Materiály",
-		path: "/materials",
+		path: "/labs",
 		icon: Sparkle,
 	},
 	{

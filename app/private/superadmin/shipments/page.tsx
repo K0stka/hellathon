@@ -8,13 +8,10 @@ import { asdf } from "./actions";
 import { login } from "@/auth/actions";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { NextPage } from "next";
 // import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-// import { useState } from "react";
-import Link from "next/link";
 
 const zasilka: Shipment = {
 	id: 123,
@@ -83,63 +80,11 @@ const ZasilkaCreateWidget = () => {
 	// 	},
 	// });
 
-	async function onSubmit(values: z.infer<typeof schema>) {
-		// const response = await login(values);
-		// if (response.error) setError(response.error);
-	}
-
-	return (
-		<div>Pls work</div>
-		// <Form {...form}>
-		// 	<form
-		// 		onSubmit={form.handleSubmit(onSubmit)}
-		// 		className="flex flex-col gap-2">
-		// 		<h1 className="font-bold text-2xl">Prosím přihlaste se</h1>
-		// 		{error && <p className="text-red-500">{error}</p>}
-		// 		<FormField
-		// 			control={form.control}
-		// 			name="loginName"
-		// 			render={({ field }) => (
-		// 				<FormItem>
-		// 					<FormLabel>Přihlašovací jméno</FormLabel>
-		// 					<FormControl>
-		// 						<Input
-		// 							placeholder="Přihlašovací jméno"
-		// 							{...field}
-		// 						/>
-		// 					</FormControl>
-		// 					<FormDescription>Zadejte své přihlašovací jméno</FormDescription>
-		// 				</FormItem>
-		// 			)}
-		// 		/>
-		// 		<FormField
-		// 			control={form.control}
-		// 			name="password"
-		// 			render={({ field }) => (
-		// 				<FormItem>
-		// 					<FormLabel>Heslo</FormLabel>
-		// 					<FormControl>
-		// 						<Input
-		// 							type="password"
-		// 							placeholder="Heslo"
-		// 							{...field}
-		// 						/>
-		// 					</FormControl>
-		// 					<FormDescription>Zadejte své heslo</FormDescription>
-		// 				</FormItem>
-		// 			)}
-		// 		/>
-		// 		<Button type="submit">Přihlásit se</Button>
-		// 		<Link href="/reset-password">Obnova hesla</Link>
-		// 	</form>
-		// </Form>
-	);
-
 	return (
 		<div>
 			<h1>Vytvořte novou zásilku</h1>
-			<input alt="asdf" />
-			<button onClick={asdf}>submit</button>
+			{/* <input alt="asdf" /> */}
+			{/* <button onClick={asdf}>submit</button> */}
 		</div>
 	);
 };
@@ -152,8 +97,8 @@ const SomePage: NextPage = () => {
 			<p>componentu pise michael</p>
 			<br></br>
 			<UserList nameList={zasilky.map((z) => z.shipmentNumber)} />
-			<hr />
-			<ZasilkaCreateWidget />
+			{/* <hr /> */}
+			{/* <ZasilkaCreateWidget /> */}
 		</div>
 	);
 };
