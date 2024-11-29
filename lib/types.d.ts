@@ -498,30 +498,30 @@ export interface Supplier {
 	number: string;
 	name: string;
 	streetHouseNumber?: string; // changed to optional
-	zipCode: string;
-	city: string;
-	land: string;
-	phone: string;
-	fax: string;
-	email: string;
-	status: string;
-	labWarningInHours: number;
-	updatedAt: string; // date
-	updatedBy: string;
-	createdAt: string; // date
-	createdBy: string;
-	ebWarningInHours: number;
-	dunsNumber: string;
-	labInfoInHours: number;
-	bruInfoInHours: number;
-	labWarningToClient: number;
-	besWarningInHours: number;
-	bewWarningInHours: number;
-	bruWarningInHours: number;
-	mabWarningInHours: number;
-	concurrentEdi: number;
-	asnNotificationInHours: number;
-	asnWarningInHours: number;
+	zipCode?: string; // changed to optional
+	city?: string; // changed to optional
+	land?: string;
+	phone?: string;
+	fax?: string;
+	email?: string;
+	status?: string;
+	labWarningInHours?: number;
+	updatedAt?: string; // date
+	updatedBy?: string;
+	createdAt?: string; // date
+	createdBy?: string;
+	ebWarningInHours?: number;
+	dunsNumber?: string;
+	labInfoInHours?: number;
+	bruInfoInHours?: number;
+	labWarningToClient?: number;
+	besWarningInHours?: number;
+	bewWarningInHours?: number;
+	bruWarningInHours?: number;
+	mabWarningInHours?: number;
+	concurrentEdi?: number;
+	asnNotificationInHours?: number;
+	asnWarningInHours?: number;
 }
 
 export interface UpdateSupplier {
@@ -655,7 +655,55 @@ export interface UserSorting {
 
 export interface Lab {
 	id: number;
+	customerDescription: string;
+	customerStreetHouseNumber: string;
+	customerLand: string;
+	customerZipCode: string;
+	customerCity: string;
+	customerContactPersonName: string;
+	customerPurchasingGroup: string;
+	customerIdentification: string;
+	customerPhone: string;
+	customerFax: string;
+	customerEmail: string;
+	customerVat: string;
+	customerNumber: string;
+	supplierNumber: string;
 	clientNumber: string;
-	deletionMark: string; // changed to string
+	plantNumber: string;
+	plantDescription: string;
+	unloadingPoint: string;
+	storagePoint: string;
+	consumptionPoint: string;
+	currentLabNumber: string;
+	currentLabDate: string; // date
+	lastLabNumber: string;
+	lastLabDate: string; // date
+	partNumber: string;
+	materialDescription: string;
+	productionReleaseDate: string;
+	materialReleaseDate: string;
+	orderNumber: string;
+	freeText: string;
+	unitOfMeasure: string;
+	inputProgressCount: string;
+	startDateEfz: string;
+	resetEfz: string;
+	status: string;
+	readAt: string; // date
+	inProgressFrom: string; // date
+	closedAt: string; // date
+	ediMessageKey: string;
+	overtakeNumber: string;
+	overtakeDate: string; // date
+	updatedAt: string; // date
+	updatedBy: string;
+	createdAt: string; // date
+	createdBy: string;
+	deletionMark: string;
+	labId: string;
+	labFlag: string;
+	key: string;
+	orderPosition: string;
 	// ...other fields as necessary...
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { getSuppliersOfClientWithId } from "@/api/api";
+import { createSupplierAdmin, getSuppliersOfClientWithId } from "@/api/api";
 import { clientEnv } from "@/clientSafeEnv";
 import PageTemplate from "@/components/PageTemplate";
 import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -14,17 +14,34 @@ import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import FormError from "@/components/FormError";
+import validator from "validator";
 
 const schema = z.object({
 	name: z.string().min(3),
 	loginName: z.string().min(3),
-	description: z.string(),
+	phone: z.string().refine(validator.isMobilePhone),
+	fax: z.string().refine(validator.isMobilePhone),
+	mobileNumber: z.string().refine(validator.isMobilePhone),
+	email: z.string().refine(validator.isEmail),
 	password: z.string().min(8),
 	supplierId: z.string(),
 });
 
 const AddSupplierPage: NextPage = () => {
-	const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
+	const form = useForm<z.infer<typeof schema>>({
+		resolver: zodResolver(schema),
+		defaultValues: {
+			name: "",
+			loginName: "",
+			phone: "",
+			fax: "",
+			mobileNumber: "",
+			email: "",
+			password: "",
+			supplierId: "",
+		},
+	});
 	const [error, setError] = useState<string | null>(null);
 	const [suppliers, setSuppliers] = useState<{ value: string; label: string }[] | null>(null);
 
@@ -39,14 +56,19 @@ const AddSupplierPage: NextPage = () => {
 	}, []);
 
 	const onSubmit = async (data: z.infer<typeof schema>) => {
-		console.log(data);
-		// data.supplierId = parseInt(data.supplierId, 10);
-		// createSupplierAdmin(name = data.name)), (loginName = data.loginName), (description = data.description), (password = data.password), (supplierId = data.supplierId);
-		// const { supplierId, ...rest } = data;
-		// console.log(rest);
-		// console.log(suppliers.find((supplier) => supplier.id === data.supplierId));
-		// const response = await createSupplierAdmin(rest, supplierId);
-		const response = { message: "TBI" };
+		const response = await createSupplierAdmin(
+			{
+				name: data.name,
+				loginName: data.loginName,
+				phone: data.phone,
+				fax: data.fax,
+				mobileNumber: data.mobileNumber,
+				email: data.email,
+				password: data.password,
+				clientNumber: clientEnv.CLIENT_ID.toString(),
+			},
+			parseInt(data.supplierId)
+		);
 
 		if ("message" in response) {
 			setError(response.message);
@@ -61,6 +83,7 @@ const AddSupplierPage: NextPage = () => {
 			backPath="/users">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
+					<FormError error={error} />
 					<FormField
 						control={form.control}
 						name="name"
@@ -95,13 +118,61 @@ const AddSupplierPage: NextPage = () => {
 					/>
 					<FormField
 						control={form.control}
-						name="description"
+						name="phone"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Popis</FormLabel>
+								<FormLabel>Telefon</FormLabel>
 								<FormControl>
 									<Input
-										placeholder="Popis"
+										placeholder="Telefon"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="fax"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Fax</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Fax"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="mobileNumber"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Mobilní telefon</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Mobilní telefon"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="email"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Email</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Email"
 										{...field}
 									/>
 								</FormControl>
@@ -132,10 +203,9 @@ const AddSupplierPage: NextPage = () => {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Dodavatel</FormLabel>
-								{/* {...field} */}
 								<FormControl>
 									{suppliers ? (
-										<Select>
+										<Select {...field}>
 											<SelectTrigger>
 												<SelectValue placeholder="Zvolte dodavatele" />
 											</SelectTrigger>

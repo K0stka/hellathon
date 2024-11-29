@@ -8,6 +8,13 @@ interface PageInfo {
 	icon?: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 }
 
+export const pages: { 3333: PageInfo[]; 4444: PageInfo[]; 6666: PageInfo[]; 8888: PageInfo[] } = {
+	3333: [],
+	4444: [],
+	6666: [],
+	8888: [],
+};
+
 export const publicPages: PageInfo[] = [
 	{
 		name: "Přihlášení",
@@ -21,17 +28,17 @@ export const publicPages: PageInfo[] = [
 
 export const sharedPages: PageInfo[] = [
 	{
+		name: "Hlavní stránka",
+		path: "/",
+		icon: Home,
+	},
+	{
 		name: "Profil",
 		path: "/profile",
 	},
 ];
 
 export const superAdminPages: PageInfo[] = [
-	{
-		name: "Hlavní stránka",
-		path: "/",
-		icon: Home,
-	},
 	{
 		name: "Dodavatelé",
 		path: "/suppliers",

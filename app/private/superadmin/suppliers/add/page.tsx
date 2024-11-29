@@ -13,17 +13,24 @@ import { createSupplier } from "@/api/api";
 import { clientEnv } from "@/clientSafeEnv";
 import { useState } from "react";
 import FormError from "@/components/FormError";
-import { redirect } from "next/dist/server/api-utils";
 
 const schema = z.object({
-	name: z.string().min(3),
-	email: z.string().refine(validator.isEmail),
-	phone: z.string().refine(validator.isMobilePhone),
-	fax: z.string().refine(validator.isMobilePhone),
-	streetNumber: z.string().min(3),
-	zipCode: z.string().min(3),
-	city: z.string().min(3),
-	land: z.string().min(3),
+	name: z.string(),
+	email: z.string(),
+	phone: z.string(),
+	fax: z.string(),
+	streetNumber: z.string(),
+	zipCode: z.string(),
+	city: z.string(),
+	// land: z.string(),
+	// name: z.string().min(3),
+	// email: z.string().refine(validator.isEmail),
+	// phone: z.string().refine(validator.isMobilePhone),
+	// fax: z.string().refine(validator.isMobilePhone),
+	// streetNumber: z.string().min(3),
+	// zipCode: z.string().min(3),
+	// city: z.string().min(3),
+	// land: z.string().min(3),
 });
 
 const AddSupplierPage: NextPage = () => {
@@ -57,11 +64,9 @@ const AddSupplierPage: NextPage = () => {
 			land: data.land,
 		});
 
-		if ("message" in response) {
-			setError(response.message);
-		} else {
-			redirect("/suppliers");
-		}
+		console.log("here");
+		console.log(response);
+		redirect("/suppliers", 302);
 	};
 
 	return (

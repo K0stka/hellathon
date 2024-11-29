@@ -1,7 +1,7 @@
 import { AuthContext } from "@/auth/context";
 import { AuthUser } from "@/lib/types";
 import { useContext } from "react";
-import { Placeholder } from "@/app/private/superadmin/page";
+import { Placeholder } from "@/app/private/shared/page";
 import { Shipment } from "@/lib/types";
 import UserList from "@/components/UserList";
 import { Button } from "@/components/ui/button";

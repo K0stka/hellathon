@@ -7,45 +7,30 @@ import { Button } from "../ui/button";
 import { ArrowUpDown, Mail, MoreHorizontal, Phone } from "lucide-react";
 import { deleteSupplier } from "@/api/api";
 import { redirect } from "next/navigation";
+import { Lab } from "@/lib/types";
+import { labsArraySchema } from "@/lib/zod";
 
 export const materialColumns: ColumnDef<Lab>[] = [
 	{
-		accessorKey: "name",
+		accessorKey: "id",
 		header: ({ column }) => {
 			return (
 				<Button
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-					Jméno
+					id
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			);
 		},
 	},
 	{
-		id: "address",
-		header: "Adresa",
+		id: "customerDescription",
+		header: "customerDescription",
 		cell: ({ row }) => {
 			return (
 				<div>
-					{row.original.streetHouseNumber}, {row.original.city}
-					{row.original.zipCode}, {row.original.land}
-				</div>
-			);
-		},
-	},
-	{
-		id: "contact",
-		header: "Kontakt",
-		cell: ({ row }) => {
-			return (
-				<div>
-					<span className="flex gap-1 items-center">
-						<Phone size="1em" /> {row.original.phone}
-					</span>
-					<span className="flex gap-1 items-center">
-						<Mail size="1em" /> {row.original.email}
-					</span>
+					{row.original.id}, {row.original.clientNumber},{row.original.deletionMark}
 				</div>
 			);
 		},

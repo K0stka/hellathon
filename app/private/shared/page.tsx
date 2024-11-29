@@ -19,10 +19,10 @@ const SomePage = async () => {
 	return (
 		<div>
 			<h1>Vítej, {user?.name}</h1>
-			<RedirectButton //cc michale
+			{/* <RedirectButton //cc michale
 				text="asdf"
-				location="asdf"
-			/>
+				location="asdf" */}
+			{/* /> */}
 			<Placeholder text="hlavní stránka, třeba nějaký dashboard" />
 		</div>
 	);

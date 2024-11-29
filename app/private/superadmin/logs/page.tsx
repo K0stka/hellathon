@@ -2,7 +2,7 @@ import { AuthContext } from "@/auth/context";
 import { AuthUser } from "@/lib/types";
 import { NextPage } from "next";
 import { useContext } from "react";
-import { Placeholder } from "@/app/private/superadmin/page";
+import { Placeholder } from "@/app/private/shared/page";
 
 const SomePage: NextPage = () => {
 	return (
