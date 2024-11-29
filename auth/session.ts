@@ -5,7 +5,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthUser } from "@/lib/types";
-import { z } from "zod";
+import { authUserSchema } from "@/lib/zod";
 import { cache } from "react";
 
 const encodedKey = new TextEncoder().encode(env.AUTH_SECRET);
@@ -13,9 +13,7 @@ const encodedKey = new TextEncoder().encode(env.AUTH_SECRET);
 const session_cookie_name = "session";
 const session_cookie_max_age = 1000 * 60 * 60 * 24 * 7; // 1 week
 
-type SessionUser = AuthUser;
-
-export async function setSessionUser(user: SessionUser) {
+export async function setSessionUser(user: AuthUser) {
 	const cookieStore = await cookies();
 
 	const expiresAt = new Date(Date.now() + session_cookie_max_age);
@@ -32,7 +30,8 @@ export async function setSessionUser(user: SessionUser) {
 	redirect("/");
 }
 
-export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
+//TODO: Fix cache
+export const getSessionUser: () => Promise<AuthUser | null> = cache(async () => {
 	const cookieStore = await cookies();
 	const cookie = cookieStore.get(session_cookie_name)?.value;
 
@@ -48,19 +47,19 @@ export async function removeSessionUser() {
 	redirect("/");
 }
 
-async function encryptSessionUser(user: SessionUser): Promise<string> {
+async function encryptSessionUser(user: AuthUser): Promise<string> {
+	// @ts-ignore
 	return new SignJWT(user).setProtectedHeader({ alg: "HS256" }).setIssuedAt().setExpirationTime("7d").sign(encodedKey);
 }
 
-async function decryptSessionUser(session: string): Promise<SessionUser | null> {
+async function decryptSessionUser(session: string): Promise<AuthUser | null> {
 	try {
 		const { payload } = await jwtVerify(session, encodedKey, {
 			algorithms: ["HS256"],
 		});
 
-		const userSchema = z.object({});
-
-		return userSchema.parse(payload);
+		// @ts-ignore
+		return authUserSchema.parse(payload);
 	} catch (error) {
 		return null;
 	}

@@ -1,11 +1,4 @@
-export interface AuthUser {
-	name: string;
-	type: "company-admin" | "company-user" | "super-admin";
-}
-
-export interface Idk {
-	something: string;
-}
+export type AuthUser = User & { roles: ValidRoleId[] };
 
 export interface AdditionalData {
 	id: number;
@@ -413,10 +406,77 @@ export interface PackingSlipNumbers {
 	createdBy: string;
 }
 
-export interface Role {
+interface RoleBase {
 	id: number;
-	description: string;
 	name: string;
+	description: string;
+}
+
+export interface ASN_USER_Role extends RoleBase {
+	id: 3333;
+	name: "ASN_USER";
+	description: "Access to ASN module";
+}
+
+export interface DI_USER_Role extends RoleBase {
+	id: 4444;
+	name: "DI_USER";
+	description: "Access to delivery instruction's module";
+}
+
+export interface SUPPLIER_ADMIN_Role extends RoleBase {
+	id: 6666;
+	name: "SUPPLIER_ADMIN";
+	description: "Supplier's administrator who manages assigned supplier";
+}
+
+export interface CLIENT_ADMIN_Role extends RoleBase {
+	id: 8888;
+	name: "CLIENT_ADMIN";
+	description: "Client's administrator who manages suppliers";
+}
+
+export type Role = ASN_USER_Role | DI_USER_Role | SUPPLIER_ADMIN_Role | CLIENT_ADMIN_Role;
+
+export type ValidRoleId = 3333 | 4444 | 6666 | 8888;
+
+export interface Shipment {
+	id: number;
+	clientNumber: string;
+	supplierNumber: string;
+	customerNumber: string;
+	status: number;
+	creationDate: string; // date
+	plantDescription: string;
+	shipmentNumber: string;
+	packagingType: string;
+	qtyInPackage: string;
+	shipmentGrossWeight: number;
+	shipmentNetWeight: number;
+	supplierPlant: string;
+	supplierPlantCountry: string;
+	supplierPlantZipCode: string;
+	estimatedArrivalDate: string; // date
+	estimatedArrivalTime: string;
+	inCoTerms: string;
+	transportMode: string;
+	transportKey: string;
+	transportNumber: string;
+	transportType: string;
+	hazardousGoods: string;
+	transportPartnerNo: string;
+	carrier: string;
+	updatedAt: string; // date
+	updatedBy: string;
+	createdAt: string; // date
+	createdBy: string;
+	shipmentDate: string; // date
+	shipmentTime: string;
+	plantNumber: string;
+	kindOfTransport: string;
+	orderingKey: string;
+	unitOfMeasure: string;
+	serialLabelNoPrefix: number;
 }
 
 export interface ShipmentNumbers {
@@ -464,24 +524,48 @@ export interface Supplier {
 	asnWarningInHours: number;
 }
 
+export interface CreateSupplier {
+	clientId: number;
+	number: string;
+	name: string;
+	streetHouseNumber: string;
+	zipCode: string;
+	city: string;
+	land: string;
+	phone: string;
+	fax: string;
+	email: string;
+}
+
 export interface User {
 	id: number;
-	description: string;
+	description?: string;
 	name: string;
 	password: string;
 	loginName: string;
-	updatedBy: string;
-	updatedAt: string; // date
-	createdBy: string;
-	createdAt: string; // date
-	lastLogin: string;
-	status: number;
-	passwordChanged: number;
-	passwordChangeable: number;
-	passwordValidTo: string;
-	passwordResetToken: string;
-	passwordResetTokenExpiredAt: string;
-	passwordSalt: string;
+	updatedBy?: string;
+	updatedAt?: string; // date
+	createdBy?: string;
+	createdAt?: string; // date
+	lastLogin?: string;
+	status?: number;
+	passwordChanged?: number;
+	passwordChangeable?: number;
+	passwordValidTo?: string;
+	passwordResetToken?: string;
+	passwordResetTokenExpiredAt?: string;
+	passwordSalt?: string;
+}
+
+export interface InsertUser {
+	name: string;
+	loginName: string;
+	phone: string;
+	fax: string;
+	mobileNumber: string;
+	email: string;
+	clientNumber: string;
+	password: string;
 }
 
 export interface UserData {

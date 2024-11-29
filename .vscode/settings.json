@@ -1,3 +1,8 @@
 {
-	"cSpell.words": ["Astley", "nunito", "securitytoken"]
+	"cSpell.words": ["Astley", "hellathon", "nunito", "securitytoken", "superadmin", "turbopack"],
+	"liveshare.allowGuestDebugControl": true,
+	"liveshare.allowGuestTaskControl": true,
+	"liveshare.languages.allowGuestCommandControl": true,
+	"liveshare.openSharedServers": false,
+	"liveshare.publishWorkspaceInfo": true
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { heptaSlab } from "@/assets/fonts";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -13,8 +14,17 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${heptaSlab.variable} antialiased`}>{children}</body>
+		<html
+			lang="cs"
+			suppressHydrationWarning>
+			<body className={`${heptaSlab.variable} antialiased`}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem>
+					{children}
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }

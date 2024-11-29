@@ -9,13 +9,14 @@ import { loginSchema } from "@/app/public/page";
 import { FormResponse } from "@/lib/utility";
 
 export async function login(data: z.infer<typeof loginSchema>): Promise<FormResponse> {
-	try {
-		const userData = await authenticateUser(data.loginName, data.password);
-		// await setSessionUser(userData);
-		return { error: JSON.stringify(userData) };
-	} catch (error: any) {
-		return { error: error.message };
-	}
+	console.log("login");
+
+	const userData = await authenticateUser(data.loginName, data.password);
+
+	if (userData.status === "error") return { error: userData.message };
+
+	await setSessionUser(userData);
+	return {};
 }
 
 export async function logout() {
