@@ -58,6 +58,7 @@ async function decryptSessionUser(session: string): Promise<AuthUser | null> {
 			algorithms: ["HS256"],
 		});
 
+		// @ts-ignore
 		return authUserSchema.parse(payload);
 	} catch (error) {
 		return null;
