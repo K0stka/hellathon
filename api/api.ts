@@ -117,6 +117,33 @@ export const createUserGroup = async (userGroupData: z.infer<typeof userGroupIds
 	}
 };
 
+export const getUserGroupsBySupplierId = async (userId: string): Promise<ValidRoleId[] | APIError> => {
+	try {
+		const params = new URLSearchParams({ userId });
+		const response = await fetch(`https://www.hella.com/webEdiPersistence/users/getUserGroupsBySupplierId?${params}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				securitytoken: SECURITY_TOKEN,
+			},
+		});
+
+		console.log("!!!!!!!!!!");
+		console.log(response.ok);
+
+		if (response.status === 401) {
+			return { status: "error", message: "Unauthorized" };
+		}
+
+		const userGroups = await response.json();
+		const roleIds = userGroups.map((group: { groupId: number }) => group.groupId);
+		return roleIds.filter((id: number): id is ValidRoleId => [3333, 4444, 6666, 8888].includes(id));
+		//
+	} catch (error: any) {
+		return { status: "error", message: error.message || "An error occurred" };
+	}
+};
+
 export const getUserGroupsByUserId = async (userId: string): Promise<ValidRoleId[] | APIError> => {
 	try {
 		const params = new URLSearchParams({ userId });
@@ -188,7 +215,7 @@ export const updateUser = async (userData: User) => {
 	}
 };
 
-export const createSupplierAdmin = async (userData: InsertUser, supplierId: number) => {
+export const createSupplierAdmin = async (userData: InsertUser, supplierId: number): Promise<User | APIError> => {
 	try {
 		const userResponse = await fetch(`https://www.hella.com/webEdiPersistence/users/insertUser`, {
 			method: "POST",
@@ -223,7 +250,11 @@ export const createSupplierAdmin = async (userData: InsertUser, supplierId: numb
 		}
 
 		const userGroup = await groupResponse.json();
-		userGroupIdsSchema.parse(userGroup);
+		// if (!Array.isArray(userGroup)) {
+		// 	const error: APIError = { status: "error", message: "Expected array, received object" };
+		// 	return error;
+		// }
+		userGroupIdsSchema.parse([userGroup]);
 
 		return parsedUser;
 	} catch (error: any) {
@@ -400,9 +431,9 @@ export const getAllLabs = async (clientNumber: number): Promise<APIError | Lab[]
 	}
 };
 
-export const markLabAsRead = async (labId: string): Promise<APIError | void> => {
+export const markLabAsRead = async (labId: number): Promise<APIError | void> => {
 	try {
-		const params = new URLSearchParams({ labId });
+		const params = new URLSearchParams({ labId: labId.toString() });
 		const response = await fetch(`https://www.hella.com/webEdiPersistence/labs/markLabAsRead?${params}`, {
 			method: "PUT",
 			headers: {

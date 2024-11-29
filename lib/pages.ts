@@ -1,6 +1,6 @@
-import { LucideProps, Sparkle } from "lucide-react";
+import { LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
-import { Home, Users, Package, FileText, Activity, Truck, BrickWall } from "lucide-react";
+import { Home, Users, Package, Activity, Truck, BrickWall } from "lucide-react";
 
 interface PageInfo {
 	name: string;
@@ -12,7 +12,23 @@ interface PageInfo {
 export const pages: { 3333: PageInfo[]; 4444: PageInfo[]; 6666: PageInfo[]; 8888: PageInfo[] } = {
 	3333: [],
 	4444: [],
-	6666: [],
+	6666: [
+		{
+			name: "Uživatelé",
+			path: "/users6",
+			icon: Users,
+		},
+		{
+			name: "Materiály",
+			path: "/labs6",
+			icon: BrickWall,
+		},
+		{
+			name: "Elektronické zásilky",
+			path: "/shipments6",
+			icon: Package,
+		},
+	],
 	8888: [
 		{
 			name: "Dodavatelé",

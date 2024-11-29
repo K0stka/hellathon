@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import NotImplementedPage from "@/components/utility/NotImplementedPage";
 
 const schema = z.object({
 	name: z.string().min(3),
@@ -16,10 +17,12 @@ const schema = z.object({
 	password: z.string().min(12),
 });
 
-const AddSupplierPage: NextPage = () => {
+const AddUserPage: NextPage = () => {
 	const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
 
 	const onSubmit = async (data: z.infer<typeof schema>) => {};
+
+	return <NotImplementedPage />;
 
 	return (
 		<PageTemplate
@@ -104,4 +107,4 @@ const AddSupplierPage: NextPage = () => {
 	);
 };
 
-export default AddSupplierPage;
+export default AddUserPage;

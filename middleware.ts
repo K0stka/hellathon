@@ -4,7 +4,7 @@ import { sharedPages, pages } from "./lib/pages";
 
 // 1. Ignore certain paths
 export const config = {
-	matcher: ["/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)"],
+	matcher: ["/((?!api|static|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)"],
 };
 
 export async function middleware(req: NextRequest) {

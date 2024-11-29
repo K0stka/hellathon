@@ -17,7 +17,7 @@ const SidebarLinks = ({ user }: SidebarLinksProps) => {
 						<SidebarMenuItem key={item.path}>
 							<SidebarMenuButton
 								asChild
-								className="transition-colors hover:bg-accent">
+								className="transition-colors hover:bg-accent text-1xl">
 								<Link
 									href={item.path}
 									className="text-nowrap">
@@ -35,7 +35,7 @@ const SidebarLinks = ({ user }: SidebarLinksProps) => {
 							<SidebarMenuItem key={item.path}>
 								<SidebarMenuButton
 									asChild
-									className="transition-colors hover:bg-accent">
+									className="transition-colors hover:bg-accent text-1xl">
 									<Link
 										href={item.path}
 										className="text-nowrap">

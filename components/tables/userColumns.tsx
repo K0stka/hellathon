@@ -50,7 +50,7 @@ export const userColumns: ColumnDef<User>[] = [
 					<DropdownMenuContent align="end">
 						<DropdownMenuItem
 							onClick={() => {
-								redirect("/users/change");
+								redirect(`/users/change/${row.original.id}`);
 							}}>
 							Upravit
 						</DropdownMenuItem>

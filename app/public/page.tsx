@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Link from "next/link";
 import FormError from "@/components/forms/FormError";
+import Image from "next/image";
 
 export const loginSchema = z.object({
 	loginName: z.string(),
@@ -34,49 +35,54 @@ const LoginPage: NextPage = () => {
 	}
 
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="flex flex-col gap-2">
-				<h1 className="font-bold text-2xl">Prosím přihlaste se</h1>
-				<FormError error={error} />
-				<FormField
-					control={form.control}
-					name="loginName"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Přihlašovací jméno</FormLabel>
-							<FormControl>
-								<Input
-									placeholder="Přihlašovací jméno"
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>Zadejte své přihlašovací jméno</FormDescription>
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Heslo</FormLabel>
-							<FormControl>
-								<Input
-									type="password"
-									placeholder="Heslo"
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>Zadejte své heslo</FormDescription>
-						</FormItem>
-					)}
-				/>
-				<Button type="submit">Přihlásit se</Button>
-				<Link href="/reset-password">Obnova hesla</Link>
-			</form>
-		</Form>
+		<div className="border-2 border-secondary p-12 rounded-lg flex items-center gap-16 shadow-lg bg-background">
+			<Image
+				src="/static/logo_blue.jpeg"
+				alt="logo"
+				width={200}
+				height={200}
+				className="rounded-xl"
+			/>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className="flex flex-col gap-2">
+					<h1 className="font-bold text-2xl">Prosím přihlaste se</h1>
+					<FormError error={error} />
+					<FormField
+						control={form.control}
+						name="loginName"
+						render={({ field }) => (
+							<FormItem>
+								<FormControl>
+									<Input
+										placeholder="Přihlašovací jméno"
+										{...field}
+									/>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="password"
+						render={({ field }) => (
+							<FormItem>
+								<FormControl>
+									<Input
+										type="password"
+										placeholder="Heslo"
+										{...field}
+									/>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
+					<Button type="submit">Přihlásit se</Button>
+					<Link href="/reset-password">Zapomenuté heslo</Link>
+				</form>
+			</Form>
+		</div>
 	);
 };
 

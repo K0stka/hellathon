@@ -8,10 +8,15 @@ import { getSessionUser } from "@/auth/session";
 import { AuthUser } from "@/lib/types";
 import { DataTable } from "@/components/tables/DataTable";
 import { userColumns } from "@/components/tables/userColumns";
-import { getAllUsers } from "@/api/api";
+import { authenticateUser, getAllUsers, getUserGroupsBySupplierId } from "@/api/api";
 
 const SomePage: NextPage = async () => {
-	const users = await getAllUsers();
+	const user = (await getSessionUser()) as AuthUser;
+	const userList = await getUserGroupsBySupplierId(user.id.toString());
+
+	return <h1>{userList}</h1>;
+
+	const users = None;
 
 	return (
 		<PageTemplate title="Uživatelé">

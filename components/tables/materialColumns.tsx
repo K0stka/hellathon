@@ -1,15 +1,12 @@
 "use client";
 
-import { Supplier } from "@/lib/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { ArrowUpDown, Mail, MoreHorizontal, Phone } from "lucide-react";
-import { deleteSupplier } from "@/api/api";
-import { redirect } from "next/navigation";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Lab } from "@/lib/types";
-import { labsArraySchema } from "@/lib/zod";
 import { markLabAsRead } from "@/api/api";
+import { Mail, Phone } from "lucide-react";
 
 export const materialColumns: ColumnDef<Lab>[] = [
 	{
@@ -41,9 +38,63 @@ export const materialColumns: ColumnDef<Lab>[] = [
 			);
 		},
 	},
-
 	{
-		accessorKey: "readAt",
+		accessorKey: "createdBy",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					Vytvořeno
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+	},
+	{
+		accessorKey: "unitOfMeasure",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					Jednotka
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+	},
+	{
+		id: "updatedAt",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					Změněno
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+		cell: ({ row }) => {
+			return <div>{new Date(row.original.updatedAt).toLocaleString()}</div>;
+		},
+	},
+	{
+		accessorKey: "plantDescription",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					Popis
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+	},
+	{
+		id: "status",
 		header: ({ column }) => {
 			return (
 				<Button
@@ -54,10 +105,28 @@ export const materialColumns: ColumnDef<Lab>[] = [
 				</Button>
 			);
 		},
+		cell: ({ row }) => {
+			return <div>{row.original.status === "1" ? "Ano" : "Ne"}</div>;
+		},
 	},
+
 	{
-		accessorKey: "plantDescription",
-		header: "Popis",
+		id: "contact",
+		header: "Kontakt",
+		cell: ({ row }) => {
+			return (
+				<div>
+					{
+						<span className="flex gap-1 items-center">
+							<Phone size="1em" /> {row.original.customerPhone}
+						</span>
+					}
+					<span className="flex gap-1 items-center">
+						<Mail size="1em" /> {row.original.customerEmail}
+					</span>
+				</div>
+			);
+		},
 	},
 	{
 		id: "actions",
@@ -75,7 +144,8 @@ export const materialColumns: ColumnDef<Lab>[] = [
 					<DropdownMenuContent align="end">
 						<DropdownMenuItem
 							onSelect={() => {
-								markLabAsRead(row.original.labId);
+								//alert(row.original.id + " " + row.original.labId);
+								markLabAsRead(row.original.id);
 							}}>
 							Označit jako přečtené
 						</DropdownMenuItem>

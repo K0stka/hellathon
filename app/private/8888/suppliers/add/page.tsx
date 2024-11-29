@@ -67,10 +67,12 @@ const AddSupplierPage: NextPage = () => {
 			title="Přidat dodavatele"
 			backPath="/suppliers">
 			<Form {...form}>
-				<FormError error={error} />
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="w-auto inline-grid grid-cols-2 gap-4 border-2 border-secondary p-5 rounded mx-auto">
+					<div className="col-span-2 text-center">
+						<FormError error={error} />
+					</div>
 					<div className="inline-flex gap-3 flex-col">
 						<FormField
 							control={form.control}

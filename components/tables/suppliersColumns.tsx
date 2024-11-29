@@ -28,8 +28,7 @@ export const supplierColumns: ColumnDef<Supplier>[] = [
 		cell: ({ row }) => {
 			return (
 				<div>
-					{row.original.streetHouseNumber}, {row.original.city}
-					{row.original.zipCode}, {row.original.land}
+					{row.original.streetHouseNumber}, {row.original.city}, {row.original.zipCode}, {row.original.land}
 				</div>
 			);
 		},
@@ -40,9 +39,9 @@ export const supplierColumns: ColumnDef<Supplier>[] = [
 		cell: ({ row }) => {
 			return (
 				<div>
-					<span className="flex gap-1 items-center">
+					{/* <span className="flex gap-1 items-center">
 						<Phone size="1em" /> {row.original.phone}
-					</span>
+					</span> */}
 					<span className="flex gap-1 items-center">
 						<Mail size="1em" /> {row.original.email}
 					</span>
@@ -64,12 +63,7 @@ export const supplierColumns: ColumnDef<Supplier>[] = [
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
-						<DropdownMenuItem
-							onSelect={() => {
-								alert("TODO");
-							}}>
-							Upravit
-						</DropdownMenuItem>
+						<DropdownMenuItem onSelect={() => {}}>Upravit</DropdownMenuItem>
 						<DropdownMenuItem
 							className="text-red-500"
 							onSelect={() => {

@@ -1,7 +1,8 @@
+import NotImplementedPage from "@/components/utility/NotImplementedPage";
 import { NextPage } from "next";
 
 const ResetPasswordPage: NextPage = async () => {
-	return <div>Ahoj</div>;
+	return <NotImplementedPage />;
 };
 
 export default ResetPasswordPage;
