@@ -9,8 +9,6 @@ import { loginSchema } from "@/app/public/page";
 import { FormResponse } from "@/lib/utility";
 
 export async function login(data: z.infer<typeof loginSchema>): Promise<FormResponse> {
-	console.log("login");
-
 	const userData = await authenticateUser(data.loginName, data.password);
 
 	if (userData.status === "error") return { error: userData.message };

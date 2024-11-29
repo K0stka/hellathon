@@ -38,13 +38,7 @@ export const authUserSchema = z.object({
 	passwordResetToken: z.string().optional(),
 	passwordResetTokenExpiredAt: z.string().optional(),
 	passwordSalt: z.string().optional(),
-	roles: z.array(
-		z.object({
-			id: z.number(),
-			name: z.string(),
-			description: z.string(),
-		})
-	),
+	roles: z.array(z.number()),
 });
 
 export const usersArraySchema = z.array(userSchema);
